@@ -59,12 +59,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "manageEmail",
+            "createUser",
             {
               "Fn::Join": [
                 "",
                 [
-                  "manageEmail",
+                  "createUser",
                   "-",
                   {
                     "Ref": "env"
@@ -110,12 +110,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "courspython2LambdaRole1494b9ac",
+            "courspython2LambdaRole5eaf7d35",
             {
               "Fn::Join": [
                 "",
                 [
-                  "courspython2LambdaRole1494b9ac",
+                  "courspython2LambdaRole5eaf7d35",
                   "-",
                   {
                     "Ref": "env"

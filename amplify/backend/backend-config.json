@@ -24,6 +24,22 @@
     }
   },
   "function": {
+    "createUser": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "users"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "manageEmail": {
       "build": true,
       "dependsOn": [
@@ -58,6 +74,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_createUser_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_createUser_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createUser"
+        }
+      ]
+    },
     "AMPLIFY_function_manageEmail_deploymentBucketName": {
       "usedBy": [
         {

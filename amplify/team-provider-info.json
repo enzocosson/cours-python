@@ -19,7 +19,11 @@
         },
         "manageEmail": {
           "deploymentBucketName": "amplify-courspython2-dev-e820b-deployment",
-          "s3Key": "amplify-builds/manageEmail-63696268756b55557661-build.zip"
+          "s3Key": "amplify-builds/manageEmail-4362526b574b3436596c-build.zip"
+        },
+        "createUser": {
+          "deploymentBucketName": "amplify-courspython2-dev-e820b-deployment",
+          "s3Key": "amplify-builds/createUser-2b596563544d7157764e-build.zip"
         }
       },
       "storage": {

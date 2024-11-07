@@ -17,13 +17,14 @@ class TEST:
         self.tokens_created = {}  
 
     def generate_random_email(self):
+        """Génère un email aléatoire."""
         random_string = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
         return f"{random_string}@example.com"
 
     def generate_hmac_token(self, email, user_id):
         """Génère un token HMAC basé sur l'email et l'ID utilisateur."""
         message = f"{email}{user_id}".encode('utf-8')
-        return hmac.new(message, b"secret_key", hashlib.sha256).hexdigest()
+        return hmac.new(message, message, hashlib.sha256).hexdigest()
 
     def create_user(self):
         email = self.generate_random_email()
@@ -41,24 +42,19 @@ class TEST:
             if response.status_code == 200:
                 try:
                     response_json = response.json()
-                    
-                    if "message" in response_json and response_json["message"] == "Email already exists":
-                        print(f"[CREATE] L'email {email} existe déjà. Voici le token :", response_json["token"])
-                        return response_json["token"]
-                    
-                    user_id = str(uuid.uuid4()) 
-                    token = self.generate_hmac_token(email, user_id)
-                    
-                    put_payload = {"email": email, "user_id": user_id, "token": token}
-                    put_response = requests.put(self.url, headers=self.headers, json=put_payload)
-                    put_response.raise_for_status()
-                    
-                    if put_response.status_code == 200:
-                        print(f"[CREATE] L'email {email} a été créé avec succès, Token : {token}")
-                        self.tokens_created[email] = token 
-                        return token
+                    if response_json and isinstance(response_json, dict):
+                        # Si l'email n'existe pas encore, créer un utilisateur
+                        user_id = response_json.get("user_id")
+                        token = response_json.get("token")
+                        
+                        if user_id and token:
+                            print(f"[CREATE] L'email {email} a été créé avec succès, Token : {token}")
+                            self.tokens_created[email] = token 
+                            return token
+                        else:
+                            print("[CREATE] Erreur : L'ID utilisateur ou le token est manquant dans la réponse.")
                     else:
-                        print(f"[CREATE] Erreur lors de la création de l'utilisateur {email} :", put_response.text)
+                        print("[CREATE] Erreur : la réponse du serveur n'est pas au format attendu.")
                 except json.JSONDecodeError:
                     print("[CREATE] Erreur : la réponse du serveur n'est pas au format JSON.")
             else:
@@ -86,10 +82,13 @@ class TEST:
                 if response.status_code == 200:
                     try:
                         response_json = response.json()
-                        if "token" in response_json:
-                            print(f"[GET] Voici le token associé à l'email {email} :", response_json["token"])
+                        if response_json and isinstance(response_json, dict):
+                            if "token" in response_json:
+                                print(f"[GET] Voici le token associé à l'email {email} :", response_json.get("token"))
+                            else:
+                                print(f"[GET] L'email {email} n'existe pas dans la base de données.")
                         else:
-                            print(f"[GET] L'email {email} n'existe pas dans la base de données.")
+                            print("[GET] Erreur : la réponse du serveur n'est pas au format attendu.")
                     except json.JSONDecodeError:
                         print("[GET] Erreur : la réponse du serveur n'est pas au format JSON.")
                 else:
