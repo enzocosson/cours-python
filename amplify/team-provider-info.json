@@ -1,0 +1,33 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-courspython2-dev-e820b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::703671910542:role/amplify-courspython2-dev-e820b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::703671910542:role/amplify-courspython2-dev-e820b-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-courspython2-dev-e820b-deployment",
+      "UnauthRoleName": "amplify-courspython2-dev-e820b-unauthRole",
+      "StackName": "amplify-courspython2-dev-e820b",
+      "StackId": "arn:aws:cloudformation:eu-west-1:703671910542:stack/amplify-courspython2-dev-e820b/03bb5580-9b5c-11ef-b26c-02012f560341",
+      "AmplifyAppId": "d1zsvwums4dayk"
+    },
+    "categories": {
+      "function": {
+        "usermanagement": {
+          "deploymentBucketName": "amplify-courspython2-dev-e820b-deployment",
+          "s3Key": "amplify-builds/usermanagement-4a756457684d46646147-build.zip"
+        },
+        "manageEmail": {
+          "deploymentBucketName": "amplify-courspython2-dev-e820b-deployment",
+          "s3Key": "amplify-builds/manageEmail-63696268756b55557661-build.zip"
+        }
+      },
+      "storage": {
+        "users": {}
+      },
+      "api": {
+        "apiRest": {}
+      }
+    }
+  }
+}
